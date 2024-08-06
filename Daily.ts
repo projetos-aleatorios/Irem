@@ -18,30 +18,32 @@ export default class Daily {
         return this._message;
     }
 
+    private appendMessage = (title: string, body: string): string => this._message += `**${title}** \n${body}\n\n`;
+
     private energy(): this {
         if (this._energy.current >= 200) {
-            this._message += `**Carga de Bateria** \nSua stamina tá/quase cheia **${this._energy.current}** de **${this._energy.max}**\n\n`;
+            this.appendMessage('Carga de Bateria', `Sua stamina tá/quase cheia \`${this._energy.current}\` de \`${this._energy.max}\``);
         }
         return this;
     }
 
     private vitality(): this {
         if (this._vitality.current !== this._vitality.max) {
-            this._message += `**Atividade Diária** \nVocê não completou todas as missões diárias. Ainda falta **${this._vitality.current}** de **${this._vitality.max}**\n\n`;
+            this.appendMessage('Atividade Diária', `Você não completou todas as missões diárias. Ainda falta \`${this._vitality.current}\` de \`${this._vitality.max}\``);
         }
         return this;
     }
 
     private cardSign(): this {
         if (this._data.card_sign.toLowerCase() === 'cardsignno') {
-            this._message += `**Raspadinha** \nNão concluído \n\n`;
+            this.appendMessage('Raspadinha', 'Não concluído');
         }
         return this;
     }
 
     private vhs(): this {
         if (this._data.vhs_sale.sale_state.toLowerCase() === 'salestatedone') {
-            this._message += `**Locadora de Vídeo** \nEstá aguardando o pagamento.\n\n`;
+            this.appendMessage('Locadora de Vídeo', 'Está aguardando o pagamento.');
         }
         return this;
     }
